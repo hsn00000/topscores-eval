@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau des top scores{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {{ form_start(formSelectJeu) }}
+        {{ form_row(formSelectJeu.jeux) }}
+        {{ form_row(formSelectJeu.submit) }}
+        {{ form_end(formSelectJeu) }}
+    </div>
+    {% if jeu is not null %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Le podium du mois de {{ "now"|date("F")|format_date(pattern="MMMM", locale="fr") }} pour le jeu {{ jeu.name }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <img src="{{ asset('img/Winner podium 3d vector illustration.jpg') }}" alt="Image de Kampus sur Freepik">
+        <div style="position: absolute; top: 40%; left: 50%; transform: translate(-3%, -50%); color: black;">
+            {% if first is not null %}
+            {{ first.user.pseudo }}
+            {% else %}
+            Aucun 1er ce mois-ci
+            {% endif %}
+        </div>
+        <div style="position: absolute; top: 64%; left: 50%; transform: translate(-27%, -50%); color: black;">
+            {% if third is not null %}
+            {{ third.user.pseudo }}
+            {% else %}
+            Aucun 3ème ce mois-ci
+            {% endif %}
+        </div>
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(13%, -50%); color: black;">
+            {% if second is not null %}
+            {{ second.user.pseudo }}
+            {% else %}
+            Aucun 2ème ce mois-ci
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <h2>Leaders board</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Ranking</th>
+                    <th>Pseudo</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                    <tr>
+                        <td>#{{ loop.index }}</td>
+                        <td>{{ score.user.pseudo }}</td>
+                        <td>{{ score.score }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

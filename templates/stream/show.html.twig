@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stream{% endblock %}
+
+{% block body %}
+    <h1>Stream de {{stream.user.pseudo}} sur {{stream.jeu.name}}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ stream.id }}</td>
+            </tr>
+            <tr>
+                <th>DateStart</th>
+                <td>{{ stream.dateStart ? stream.dateStart|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ stream.url }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_stream_index') }}">back to list</a>
+
+    <a href="{{ path('app_stream_edit', {'id': stream.id}) }}">edit</a>
+
+    {{ include('stream/_delete_form.html.twig') }}
+
+    <center><h2>Evaluations<h2><center>
+
+    {{form_start(form)}}
+    {{ form_widget(form) }}
+    <button type="submit"class="btn btn-primary">Ajouter</button>
+    {{ form_end(form) }}
+
+    {% for eval in evaluations %}
+    {{ eval.note }} {{ eval.commentaire}}
+    {% endfor %}
+
+{% endblock %}

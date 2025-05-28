@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes parties{% endblock %}
+
+{% block body %}
+    <h1>Mes parties</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Joueur</th>
+                <th>Jeu</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for partie in parties %}
+            <tr>
+                <td>{{ partie.user.pseudo }}</td>
+                <td>{{ partie.jeu.name }}</td>
+                <td>{{ partie.date ? partie.date|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ partie.score }}</td>
+                <td>
+                    <a href="{{ path('app_partie_show', {'id': partie.id}) }}">show</a>
+                    <a href="{{ path('app_partie_edit', {'id': partie.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_partie_new') }}">Create new</a>
+{% endblock %}

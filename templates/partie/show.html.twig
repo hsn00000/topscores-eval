@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partie{% endblock %}
+
+{% block body %}
+    <h1>Partie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ partie.id }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ partie.date ? partie.date|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Score</th>
+                <td>{{ partie.score }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_partie_index') }}">back to list</a>
+
+    <a href="{{ path('app_partie_edit', {'id': partie.id}) }}">edit</a>
+
+    {{ include('partie/_delete_form.html.twig') }}
+{% endblock %}
